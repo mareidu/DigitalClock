@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Laikas ir data</title>
+    <link rel = "stylesheet" href="style.css">
+  </head>
+  <body onload="inicLaikr()">
+    <!-- digital clock start-->
+    <div class="datalaikas">
+      <div class="data">
+        <span id="metai">year</span>
+        <span id="men">Month</span>
+        <span id="dienr">00</span>,
+        <span id="savd">Day</span>
+
+      </div>
+      <div class="laikas">
+        <span id="valanda">00</span>:
+        <span id="minutes">00</span>:
+        <span id="sekundes">00</span>
+    </div>
+    <!-- digital clock end-->
+
+    <script type="text/javascript">
+      function updateClock(){
+        var now = new Date();
+        var sdpav = now.getDay(),
+            me = now.getMonth(),
+            dnum = now.getDate(),
+            mt = now.getFullYear(),
+            val = now.getHours(),
+            min = now.getMinutes(),
+            sek = now.getSeconds();
+
+              Number.prototype.pad = function(digits){
+              for(var n = this.toString(); n.length < digits; n = 0 + n);
+              return n;
+            }
+
+            var men = ["sausio", "vasario", "kovo", "balandžio", "gegužės", "birželio", "liepos", "rugpjūčio", "rugsėjo", "spalio", "lapkričio", "gruodžio"];
+            var sav = ["sekmadienis", "pirmadienis", "antradienis", "trečiadienis", "ketvirtadienis", "penktadienis", "šeštadienis"];
+            var ids = ["men", "savd", "dienr", "metai", "valanda", "minutes", "sekundes"];
+            var vertes = [men[me], sav[sdpav], dnum.pad(2), mt, val, min.pad(2), sek.pad(2)];
+            for(var i = 0; i < ids.length; i++)
+            document.getElementById(ids[i]).firstChild.nodeValue = vertes[i];
+      }
+
+      function inicLaikr(){
+        updateClock();
+        window.setInterval("updateClock()", 1);
+      }
+    </script>
+  </body>
+</html>
